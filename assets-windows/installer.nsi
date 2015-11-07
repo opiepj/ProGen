@@ -1,23 +1,23 @@
 !include "MUI2.nsh"
 
-Name "Klout"
+Name "ProGen"
 BrandingText "aluxian.com"
 
 # set the icon
 !define MUI_ICON "icon.ico"
 
 # define the resulting installer's name:
-OutFile "..\dist\KloutSetup.exe"
+OutFile "..\dist\ProGenSetup.exe"
 
 # set the installation directory
-InstallDir "$PROGRAMFILES\Klout\"
+InstallDir "$PROGRAMFILES\ProGen\"
 
 # app dialogs
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_RUN_TEXT "Start Klout"
-!define MUI_FINISHPAGE_RUN "$INSTDIR\Klout.exe"
+!define MUI_FINISHPAGE_RUN_TEXT "Start ProGen"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\ProGen.exe"
 
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_LANGUAGE "English"
@@ -32,15 +32,15 @@ Section
   SetOutPath $INSTDIR
 
   # specify the files to go in the output path
-  File /r ..\build\Klout\win32\*
+  File /r ..\build\ProGen\win32\*
 
   # create the uninstaller
-  WriteUninstaller "$INSTDIR\Uninstall Klout.exe"
+  WriteUninstaller "$INSTDIR\Uninstall ProGen.exe"
 
   # create shortcuts in the start menu and on the desktop
-  CreateShortCut "$SMPROGRAMS\Klout.lnk" "$INSTDIR\Klout.exe"
-  CreateShortCut "$SMPROGRAMS\Uninstall Klout.lnk" "$INSTDIR\Uninstall Klout.exe"
-  CreateShortCut "$DESKTOP\Klout.lnk" "$INSTDIR\Klout.exe"
+  CreateShortCut "$SMPROGRAMS\ProGen.lnk" "$INSTDIR\ProGen.exe"
+  CreateShortCut "$SMPROGRAMS\Uninstall ProGen.lnk" "$INSTDIR\Uninstall ProGen.exe"
+  CreateShortCut "$DESKTOP\ProGen.lnk" "$INSTDIR\ProGen.exe"
 
 SectionEnd
 
@@ -51,8 +51,8 @@ Section "Uninstall"
   RMDir /r $INSTDIR
 
   # delete the shortcuts
-  Delete "$SMPROGRAMS\Klout.lnk"
-  Delete "$SMPROGRAMS\Uninstall Klout.lnk"
-  Delete "$DESKTOP\Klout.lnk"
+  Delete "$SMPROGRAMS\ProGen.lnk"
+  Delete "$SMPROGRAMS\Uninstall ProGen.lnk"
+  Delete "$DESKTOP\ProGen.lnk"
 
 SectionEnd
