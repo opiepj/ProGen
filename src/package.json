@@ -1,0 +1,32 @@
+{
+  "main": "app.html",
+  "name": "ProGen",
+  "version": "0.1.0",
+  "app-id": "com.1337programming.progen",
+  "chromium-args": "--disable-setuid-sandbox",
+  "window": {
+    "width": 1080,
+    "height": 768,
+    "title": "ProGen",
+    "icon": "icons/icon.png",
+    "toolbar": false,
+    "show": false
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "dependencies": {
+    "async": "^1.0.0",
+    "auto-launch": "^0.1.18",
+    "jfs": "^0.2.5",
+    "request": "^2.56.0",
+    "semver": "^4.3.5"
+  },
+  "manifestUrl": "https://raw.githubusercontent.com/1337programming/ProGen/master/src/package.json",
+  "packages": {
+    "osx64": "https://github.com/1337programming/ProGen/releases/download/v0.1.0/ProGen.dmg",
+    "win32": "https://github.com/1337programming/ProGen/releases/download/v0.1.0/ProGenSetup.exe",
+    "linux32": "https://github.com/1337programming/ProGen/releases/download/v0.1.0/ProGen_linux32.deb",
+    "linux64": "https://github.com/1337programming/ProGen/releases/download/v0.1.0/ProGen_linux64.deb"
+  }
+}
