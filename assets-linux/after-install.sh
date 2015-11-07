@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Link to the binary
-ln -sf /opt/klout/Klout /usr/local/bin/klout
+ln -sf /opt/progen/ProGen /usr/local/bin/progen
 
 # Launcher icon
-desktop-file-install /opt/klout/klout.desktop
+desktop-file-install /opt/progen/progen.desktop
