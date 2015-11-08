@@ -1,3 +1,4 @@
+# windows installer
 !include "MUI2.nsh"
 
 Name "ProGen"
