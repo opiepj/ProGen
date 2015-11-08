@@ -6,25 +6,25 @@ import settings = require('./settings');
 var gui = require('nw.gui');
 
 export class windowBehaviour {
-	private platform;
-	private settings;
+  private platform;
+  private settings;
 
-	constructor() {
-		this.platform = new platform.platform();
-		this.settings = new settings.settings();
-	}
+  constructor() {
+    this.platform = new platform.platform();
+    this.settings = new settings.settings();
+  }
 
-	public set(win) {
+  public set(win) {
     // Show the window when the dock icon is pressed
     gui.App.removeAllListeners('reopen');
-    gui.App.on('reopen', function() {
+    gui.App.on('reopen', function () {
       win.show();
     });
 
     // Don't quit the app when the window is closed
     if (!this.platform.isLinux) {
       win.removeAllListeners('close');
-      win.on('close', function(quit) {
+      win.on('close', function (quit) {
         if (quit) {
           this.saveWindowState(win);
           win.close(true);
@@ -40,7 +40,7 @@ export class windowBehaviour {
    */
   public setNewWinPolicy(win) {
     win.removeAllListeners('new-win-policy');
-    win.on('new-win-policy', function(frame, url, policy) {
+    win.on('new-win-policy', function (frame, url, policy) {
       if (this.settings.openLinksInBrowser) {
         gui.Shell.openExternal(url);
         policy.ignore();
@@ -55,22 +55,22 @@ export class windowBehaviour {
    */
   public bindWindowStateEvents(win) {
     win.removeAllListeners('maximize');
-    win.on('maximize', function() {
+    win.on('maximize', function () {
       win.sizeMode = 'maximized';
     });
 
     win.removeAllListeners('unmaximize');
-    win.on('unmaximize', function() {
+    win.on('unmaximize', function () {
       win.sizeMode = 'normal';
     });
 
     win.removeAllListeners('minimize');
-    win.on('minimize', function() {
+    win.on('minimize', function () {
       win.sizeMode = 'minimized';
     });
 
     win.removeAllListeners('restore');
-    win.on('restore', function() {
+    win.on('restore', function () {
       win.sizeMode = 'normal';
     });
   }
