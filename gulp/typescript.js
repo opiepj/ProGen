@@ -4,7 +4,7 @@ var shelljs = require('shelljs');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('typescript', function () {
-  return gulp.src(['./src/**/*.ts')
+  return gulp.src('./src/**/*.ts')
     .pipe(ts({
       noImplicitAny: true,
       out: 'app.js'
