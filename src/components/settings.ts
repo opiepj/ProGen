@@ -8,40 +8,40 @@ var gui = require('nw.gui');
 var clipboard = gui.Clipboard.get();
 
 interface ObjectConstructor {
-	observe(beingObserved: any, callback: (update: any) => any): void;
+  observe(beingObserved: any, callback: (update: any) => any): void;
 }
 
 export class settings implements ObjectConstructor {
-	private static DEFAULT_SETTINGS = {
-		launchOnStartup: false,
-		checkUpdateOnLaunch: false,
-		openLinksInBrowser: true,
-		asMenuBarAppOSX: false,
-		windowState: {},
-	}
-	private db;
-	private settings;
-	private watchers: Object;
+  private static DEFAULT_SETTINGS = {
+    launchOnStartup: false,
+    checkUpdateOnLaunch: false,
+    openLinksInBrowser: true,
+    asMenuBarAppOSX: false,
+    windowState: {},
+  }
+  private db;
+  private settings;
+  private watchers: Object;
 
-	constructor () {
-		this.db = new Store(path.join(gui.App.dataPath, 'preferences.json'));
-		this.settings = this.db.getSync('settings');
-	}
+  constructor() {
+    this.db = new Store(path.join(gui.App.dataPath, 'preferences.json'));
+    this.settings = this.db.getSync('settings');
+  }
 
-	public watch = function (name, callback) {
-		if (!Array.isArray(this.watchers[name])) {
-			this.watchers[name] = [];
-		}
-		this.watchers[name].push(callback);
-	}
+  public watch = function (name, callback) {
+    if (!Array.isArray(this.watchers[name])) {
+      this.watchers[name] = [];
+    }
+    this.watchers[name].push(callback);
+  }
 
-	// TODO: get the callback function to work
-	public observe(settings, changes: Function) {
-		changes()
-		changes
-	}
+  // TODO: get the callback function to work
+  public observe(settings, changes: Function) {
+    changes()
+    changes
+  }
 
-	/*
+  /*
 	// Save settings every time a change is made and notify watchers
 	Object.observe(settings, function(changes) {
 	  db.save('settings', settings, function(err) {
