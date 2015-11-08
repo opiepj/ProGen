@@ -3,7 +3,7 @@ var shelljs = require('shelljs');
 var $ = require('gulp-load-plugins')();
 
 ['win32', 'osx64', 'linux32', 'linux64'].forEach(function (platform) {
-  gulp.task(['typescript'], 'build:' + platform, function () {
+  gulp.task('build:' + platform, ['typescript'], function () {
     if (process.argv.indexOf('--toolbar') > 0) {
       shelljs.sed('-i', '"toolbar": false', '"toolbar": true', './src/package.json');
     }
