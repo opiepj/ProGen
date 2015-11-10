@@ -11,7 +11,7 @@ export class dispatcher {
         var event = this.queue[0][0];
         var data = this.queue[0][1];
 
-        this.callbacks[event].forEach(function (callback) {
+        this.callbacks[event].forEach(function (callback: Function) {
           callback(data);
         });
 
@@ -20,7 +20,7 @@ export class dispatcher {
     }, 100);
   }
 
-  public addEventListener(event, callback) {
+  public addEventListener(event: any, callback: Function) {
     if (!this.callbacks[event]) {
       this.callbacks[event] = [];
     }
@@ -28,11 +28,11 @@ export class dispatcher {
     this.callbacks[event].push(callback);
   }
 
-  public removeAllListeners(event) {
+  public removeAllListeners(event: any) {
     this.callbacks[event] = [];
   }
 
-  public trigger(event, data) {
+  public trigger(event: any, data: any) {
     this.queue.push([event, data]);
   }
 }

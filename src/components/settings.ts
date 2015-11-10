@@ -2,14 +2,15 @@
 
 //TODO: Database file storage
 
-import Store = require('jfs');
+import jfs = require('jfs');
 import path = require('path');
-var gui = require('nw.gui');
-var clipboard = gui.Clipboard.get();
+var Store = jfs.Store;
+var gui: any = require('nw.gui');
+var clipboard: any = gui.Clipboard.get();
 
 interface ObjectConstructor {
   observe(beingObserved: any, callback: (update: any) => any): void;
-  keys(array: Array < any > )
+  keys(array: Array<any>): void;
 }
 
 export class settings implements ObjectConstructor {
@@ -22,16 +23,16 @@ export class settings implements ObjectConstructor {
   }
   private db;
   private settings;
-  private watchers: Object;
+  private watchers: any;
 
   constructor() {
-    this.db = new Store.Store(path.join(gui.App.dataPath, 'preferences.json'));
+    this.db = new Store(path.join(gui.App.dataPath, 'preferences.json'));
     this.settings = this.db.getSync('settings');
     this.setDefaultSettings();
     this.observeSettings();
   }
 
-  public watch(name, callback: Function) {
+  public watch(name: string, callback: Function) {
     if (!Array.isArray(this.watchers[name])) {
       this.watchers[name] = [];
     }
@@ -40,20 +41,20 @@ export class settings implements ObjectConstructor {
 
   public observeSettings() {
     // Save settings every time a change is made and notify watchers
-    Object.observe(this.settings, function (changes) {
-      this.db.save('settings', settings, function (err) {
+    Object.observe(this.settings, function (changes: any) {
+      this.db.save('settings', this.settings, function (err: Error) {
         if (err) {
           console.error('Could not save settings', err);
         }
       });
 
-      changes.forEach(function (change) {
-        var newValue = change.object[change.name];
-        var keyWatchers = this.watchers[change.name];
+      changes.forEach(function (change: any) {
+        var newValue: any = change.object[change.name];
+        var keyWatchers: any = this.watchers[change.name];
 
         // Call all the watcher functions for the changed key
         if (keyWatchers && keyWatchers.length) {
-          for (var i = 0; i < keyWatchers.length; i++) {
+          for (var i: number = 0; i < keyWatchers.length; i++) {
             try {
               keyWatchers[i](newValue);
             } catch (ex) {
@@ -69,9 +70,9 @@ export class settings implements ObjectConstructor {
 
   // Ensure the default values exist
   public setDefaultSettings() {
-    Object.keys(this.DEFAULT_SETTINGS).forEach(function (key) {
-      if (!settings.hasOwnProperty(key)) {
-        settings[key] = this.DEFAULT_SETTINGS[key];
+    Object.keys(this.DEFAULT_SETTINGS).forEach(function (key: any) {
+      if (!this.settings.hasOwnProperty(key)) {
+        this.settings[key] = this.DEFAULT_SETTINGS[key];
       }
     });
   }

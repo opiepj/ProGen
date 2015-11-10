@@ -3,7 +3,7 @@
 import platform = require('./platform');
 import settings = require('./settings');
 
-var gui = require('nw.gui');
+var gui: any = require('nw.gui');
 
 export class windowBehaviour {
   private platform;
@@ -24,7 +24,7 @@ export class windowBehaviour {
     // Don't quit the app when the window is closed
     if (!this.platform.isLinux) {
       win.removeAllListeners('close');
-      win.on('close', function (quit) {
+      win.on('close', function (quit: any) {
         if (quit) {
           this.saveWindowState(win);
           win.close(true);
@@ -38,9 +38,9 @@ export class windowBehaviour {
   /**
    * Change the new window policy to open links in the browser or another window.
    */
-  public setNewWinPolicy(win) {
+  public setNewWinPolicy(win: any) {
     win.removeAllListeners('new-win-policy');
-    win.on('new-win-policy', function (frame, url, policy) {
+    win.on('new-win-policy', function (frame: any, url: string, policy: any) {
       if (this.settings.openLinksInBrowser) {
         gui.Shell.openExternal(url);
         policy.ignore();
@@ -53,7 +53,7 @@ export class windowBehaviour {
   /**
    * Listen for window state events.
    */
-  public bindWindowStateEvents(win) {
+  public bindWindowStateEvents(win: any) {
     win.removeAllListeners('maximize');
     win.on('maximize', function () {
       win.sizeMode = 'maximized';
@@ -78,8 +78,8 @@ export class windowBehaviour {
   /**
    * Store the window state.
    */
-  public saveWindowState(win) {
-    var state = {
+  public saveWindowState(win: any) {
+    var state: any = {
       mode: win.sizeMode || 'normal'
     };
 
@@ -96,8 +96,8 @@ export class windowBehaviour {
   /**
    * Restore the window size and position.
    */
-  public restoreWindowState(win) {
-    var state = this.settings.windowState;
+  public restoreWindowState(win: any) {
+    var state: any = this.settings.windowState;
 
     if (state.mode == 'maximized') {
       win.maximize();

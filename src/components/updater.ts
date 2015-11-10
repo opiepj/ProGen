@@ -6,7 +6,7 @@ import platform = require('./platform');
 import dispatcher = require('./dispatcher');
 import request = require('request');
 import semver = require('semver');
-var gui = require('nw.gui');
+var gui: any = require('nw.gui');
 
 export class updater {
 
@@ -22,13 +22,13 @@ export class updater {
    * Check if there's a new version available.
    */
   public check(manifest, callback) {
-    request(manifest.manifestUrl, function (error, response, body) {
+    request(manifest.manifestUrl, function (error: Error, response: any, body: any) {
       if (error) {
         return callback(error);
       }
 
-      var newManifest = JSON.parse(body);
-      var newVersionExists = semver.gt(newManifest.version, manifest.version);
+      var newManifest: any = JSON.parse(body);
+      var newVersionExists: any = semver.gt(newManifest.version, manifest.version);
 
       callback(null, newVersionExists, newManifest);
     });
@@ -37,7 +37,7 @@ export class updater {
   /**
    * Show a dialog to ask the user to update.
    */
-  public prompt(win, ignoreError, error, newVersionExists, newManifest) {
+  public prompt(win: any, ignoreError: boolean, error: Error, newVersionExists: boolean, newManifest: any) {
     if (error) {
       if (!ignoreError) {
         this.dispatcher.trigger('win.alert', {
@@ -50,7 +50,7 @@ export class updater {
     }
 
     if (newVersionExists) {
-      var updateMessage = 'There’s a new version available (' + newManifest.version + '). Would you like to download the update now?';
+      var updateMessage: string = 'There’s a new version available (' + newManifest.version + '). Would you like to download the update now?';
 
       this.dispatcher.trigger('win.confirm', {
         win: win,
@@ -68,7 +68,7 @@ export class updater {
   /**
    * Check for update and ask the user to update.
    */
-  public checkAndPrompt(manifest, win) {
+  public checkAndPrompt(manifest: any, win: any) {
     this.check(manifest, this.prompt.bind(this, win, true));
   }
 

@@ -12,11 +12,11 @@ var clipboard = gui.Clipboard.get();
 
 export class menus {
 
-  private platform;
-  private updater;
-  private settings;
-  private windowBehaviour
-  private dispatcher;
+  private platform: any;
+  private updater: any;
+  private settings: any;
+  private windowBehaviour: any;
+  private dispatcher: any;
 
   constructor() {
     this.platform = new platform.platform();
@@ -26,7 +26,7 @@ export class menus {
     this.dispatcher = new dispatcher.dispatcher();
   }
 
-  public settingsItems(win, keep) {
+  public settingsItems(win: any, keep: any) {
     var self = this;
     return [{
       label: 'Reload',
@@ -73,9 +73,9 @@ export class menus {
           isHidden: true // hidden on launch - only works on a mac atm
         });
 
-        launcher.isEnabled(function (enabled) {
+        launcher.isEnabled(function (enabled: boolean) {
           if (this.settings.launchOnStartup && !enabled) {
-            launcher.enable(function (error) {
+            launcher.enable(function (error: Error) {
               if (error) {
                 console.error(error);
               }
@@ -83,7 +83,7 @@ export class menus {
           }
 
           if (!this.settings.launchOnStartup && enabled) {
-            launcher.disable(function (error) {
+            launcher.disable(function (error: Error) {
               if (error) {
                 console.error(error);
               }
@@ -100,7 +100,7 @@ export class menus {
     }, {
       label: 'Check for Update',
       click: function () {
-        this.updater.check(gui.App.manifest, function (error, newVersionExists, newManifest) {
+        this.updater.check(gui.App.manifest, function (error: Error, newVersionExists: boolean, newManifest: any) {
           if (error || newVersionExists) {
             this.updater.prompt(win, false, error, newVersionExists, newManifest);
           } else {
@@ -116,7 +116,7 @@ export class menus {
       click: function () {
         win.showDevTools();
       }
-    }].map(function (item) {
+    }].map(function (item: any) {
       // If the item has a 'setting' property, use some predefined values
       if (item.setting) {
         if (!item.hasOwnProperty('checked')) {
@@ -131,17 +131,17 @@ export class menus {
       }
 
       return item;
-    }).filter(function (item) {
+    }).filter(function (item: any) {
       // Remove the item if the current platform is not supported
       return !Array.isArray(item.platforms) || (item.platforms.indexOf(this.platform.type) != -1);
-    }).map(function (item) {
+    }).map(function (item: any) {
       var menuItem = new gui.MenuItem(item);
       menuItem.setting = item.setting;
       return menuItem;
     });
   }
 
-  public loadMenuBar(win) {
+  public loadMenuBar(win: any) {
     if (!this.platform.isOSX) {
       return;
     }
@@ -158,14 +158,14 @@ export class menus {
     }), 1);
 
     // Add the main settings
-    this.settingsItems(win, true).forEach(function (item, index) {
+    this.settingsItems(win, true).forEach(function (item: any, index: number) {
       submenu.insert(item, index + 2);
     });
 
     // Watch the items that have a 'setting' property
-    submenu.items.forEach(function (item) {
+    submenu.items.forEach(function (item: any) {
       if (item.setting) {
-        this.settings.watch(item.setting, function (value) {
+        this.settings.watch(item.setting, function (value: any) {
           item.checked = value;
         });
       }
@@ -174,11 +174,11 @@ export class menus {
     win.menu = menu;
   }
 
-  public createTrayMenu(win) {
+  public createTrayMenu(win: any) {
     var menu = new gui.Menu();
 
     // Add the main settings
-    this.settingsItems(win, true).forEach(function (item) {
+    this.settingsItems(win, true).forEach(function (item: any) {
       menu.append(item);
     });
 
@@ -201,9 +201,9 @@ export class menus {
     }));
 
     // Watch the items that have a 'setting' property
-    menu.items.forEach(function (item) {
+    menu.items.forEach(function (item: any) {
       if (item.setting) {
-        this.settings.watch(item.setting, function (value) {
+        this.settings.watch(item.setting, function (value: any) {
           item.checked = value;
         });
       }
@@ -212,7 +212,7 @@ export class menus {
     return menu;
   }
 
-  public loadTrayIcon(win) {
+  public loadTrayIcon(win: any) {
     if (win.tray) {
       win.tray.remove();
       win.tray = null;
@@ -233,7 +233,7 @@ export class menus {
     win.tray = tray;
   }
 
-  public createContextMenu(win, window, document, targetElement) {
+  public createContextMenu(win: any, window: any, document: any, targetElement: any) {
     var menu = new gui.Menu();
 
     if (targetElement.tagName.toLowerCase() == 'input') {
@@ -277,15 +277,15 @@ export class menus {
       }
     }
 
-    this.settingsItems(win, false).forEach(function (item) {
+    this.settingsItems(win, false).forEach(function (item: any) {
       menu.append(item);
     });
 
     return menu;
   }
 
-  public injectContextMenu(win, window, document) {
-    document.body.addEventListener('contextmenu', function (event) {
+  public injectContextMenu(win: any, window: any, document: any) {
+    document.body.addEventListener('contextmenu', function (event: any) {
       event.preventDefault();
       this.createContextMenu(win, window, document, event.target).popup(event.x, event.y);
       return false;

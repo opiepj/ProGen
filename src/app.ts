@@ -10,13 +10,13 @@ import dispatcher = require('./components/dispatcher');
 var gui = require('nw.gui');
 var win = gui.Window.get();
 
-module ProGen {
-  var platform = new platform();
-  var updater = new updater();
-  var menus = new menus();
-  var settings = new settings();
-  var windowBehaviour = new windowBehaviour();
-  var dispatcher = new dispatcher();
+export module ProGen {
+  var platform: any = new platform.platform();
+  var updater: any = new updater.updater();
+  var menus: any = new menus.menus();
+  var settings: any = new settings.settings();
+  var windowBehaviour: any = new windowBehaviour.windowBehaviour();
+  var dispatcher: any = new dispatcher.dispatcher();
 
   // Ensure there's an app shortcut for toast notifications to work on Windows
   if (platform.isWindows) {
@@ -24,11 +24,11 @@ module ProGen {
   }
 
   // Add dispatcher events
-  dispatcher.addEventListener('win.alert', function (data) {
+  dispatcher.addEventListener('win.alert', function (data: any) {
     data.win.window.alert(data.message);
   });
 
-  dispatcher.addEventListener('win.confirm', function (data) {
+  dispatcher.addEventListener('win.confirm', function (data: any) {
     data.callback(data.win.window.confirm(data.message));
   });
 
