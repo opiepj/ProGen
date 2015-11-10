@@ -6,15 +6,15 @@ import settings = require('./settings');
 var gui: any = require('nw.gui');
 
 export class windowBehaviour {
-  private platform;
-  private settings;
+  private platform: any;
+  private settings: any;
 
   constructor() {
     this.platform = new platform.platform();
     this.settings = new settings.settings();
   }
 
-  public set(win) {
+  public set(win: any) {
     // Show the window when the dock icon is pressed
     gui.App.removeAllListeners('reopen');
     gui.App.on('reopen', function () {

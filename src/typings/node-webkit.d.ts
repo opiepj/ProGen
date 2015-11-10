@@ -16,7 +16,7 @@
 // declare var process: any;
 // declare var global: any; // Also defined in typescript.d.ts
 // declare var require: any;
-declare var global:any;
+declare var Global: any;
 
 
 declare class EventEmitter {

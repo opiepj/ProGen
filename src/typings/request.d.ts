@@ -19,9 +19,9 @@ declare module "request" {
 
   module request {
     export function request(uri: string, options: Options, callback ? : (error: any, response: any, body: any) => void): Request;
-    export var initParams;
-    export function defaults(options, requester);
-    export function forever(agentOptions, optionsArg);
+    export var initParams: any;
+    export function defaults(options: any, requester: any): any;
+    export function forever(agentOptions: any, optionsArg: any): any;
     export function jar(): CookieJar;
     export function cookie(str: string): Cookie;
 
@@ -48,31 +48,31 @@ declare module "request" {
     interface Options {
       uri ? : string;
       callback ? : (error: any, response: any, body: any) => void;
-      jar ? ;
-      form ? ;
-      oauth ? ;
-      aws ? ;
-      qs ? ;
-      json ? ;
-      multipart ? ;
-      ca ? ;
-      agentOptions ? ;
-      agentClass ? ;
-      forever ? ;
-      requestBodyStream ? ;
-      host ? ;
-      port ? ;
-      method ? ;
-      headers ? ;
-      body ? ;
-      followRedirect ? ;
-      followAllRedirects ? ;
-      maxRedirects ? ;
-      encoding ? ;
-      pool ? ;
-      timeout ? ;
-      proxy ? ;
-      strictSSL ? ;
+      jar ? : any;
+      form ?: any;
+      oauth ?: any;
+      aws ?: any;
+      qs ?: any;
+      json?: any;
+      multipart?: any;
+      ca?: any;
+      agentOptions?: any;
+      agentClass?: any;
+      forever?: any;
+      requestBodyStream?: any;
+      host?: any;
+      port?: any;
+      method?: any;
+      headers?: any;
+      body?: any;
+      followRedirect?: any;
+      followAllRedirects?: any;
+      maxRedirects?: any;
+      encoding?: any;
+      pool?: any;
+      timeout?: any;
+      proxy?: any;
+      strictSSL?: any;
     }
 
     interface Request {
@@ -80,7 +80,7 @@ declare module "request" {
       getAgent(): http.Agent;
       //start();
       //abort();
-      pipeDest(dest);
+      pipeDest(dest: any): any;
       setHeader(name: string, value: string, clobber ? : boolean): Request;
       setHeaders(headers: any): Request;
       qs(q: any, clobber ? : boolean): Request;
@@ -89,31 +89,31 @@ declare module "request" {
         body: any;
       }[]): Request;
       json(val: any): Request;
-      aws(opts, now): Request;
-      oauth(oauth): Request;
-      jar(jar): Request;
-      pipe(dest: stream.WritableStream, opts: any): stream.WritableStream;
-      write();
-      end(chunk);
-      pause();
-      resume();
-      abort();
-      destroy();
+      aws(opts: any, now: any): Request;
+      oauth(oauth: any): Request;
+      jar(jar: any): Request;
+      pipe(dest: any, opts: any): any;
+      write(): any;
+      end(chunk: any): any;
+      pause(): any;
+      resume(): any;
+      abort(): any;
+      destroy(): any;
       toJSON(): string;
     }
 
     export interface CookieJar {
       setCookie(cookie: Cookie, uri: string | url.Url, options ? : any): void
-      getCookieString(uri: string | url.Url)
-      getCookies(uri: string | url.Url)
+      getCookieString(uri: string | url.Url): string
+      getCookies(uri: string | url.Url): any
     }
 
     export interface Cookie extends Array < {
-      name;
-      value;
-      httpOnly;
+      name: any;
+      value: any;
+      httpOnly: any;
     } > {
-      constructor(str, req);
+      constructor(str: any, req: any): any;
       str: string;
       expires: Date;
       path: string;

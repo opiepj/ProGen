@@ -14,15 +14,15 @@ interface ObjectConstructor {
 }
 
 export class settings implements ObjectConstructor {
-  private DEFAULT_SETTINGS = {
+  private DEFAULT_SETTINGS: any = {
     launchOnStartup: false,
     checkUpdateOnLaunch: false,
     openLinksInBrowser: true,
     asMenuBarAppOSX: false,
     windowState: {},
   }
-  private db;
-  private settings;
+  private db: any;
+  private settings: any;
   private watchers: any;
 
   constructor() {

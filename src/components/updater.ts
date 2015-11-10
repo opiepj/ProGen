@@ -10,8 +10,8 @@ var gui: any = require('nw.gui');
 
 export class updater {
 
-  private dispatcher;
-  private platform;
+  private dispatcher: any;
+  private platform: any;
 
   constructor() {
     this.dispatcher = new dispatcher.dispatcher();
@@ -21,7 +21,7 @@ export class updater {
   /**
    * Check if there's a new version available.
    */
-  public check(manifest, callback) {
+  public check(manifest: any, callback: Function) {
     request(manifest.manifestUrl, function (error: Error, response: any, body: any) {
       if (error) {
         return callback(error);
@@ -55,7 +55,7 @@ export class updater {
       this.dispatcher.trigger('win.confirm', {
         win: win,
         message: updateMessage,
-        callback: function (result) {
+        callback: function (result: any) {
           if (result) {
             gui.Shell.openExternal(newManifest.packages[this.platform.name]);
             gui.App.quit();

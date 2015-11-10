@@ -1,7 +1,7 @@
 /// <reference path="../typings/_custom.d.ts" />
 
 export class dispatcher {
-  private callbacks: Object;
+  private callbacks: any;
   private queue: Array < any > ;
   constructor() {
     this.callbacks = {};
