@@ -12,22 +12,22 @@ var clipboard = gui.Clipboard.get();
 
 export class menus {
 
-	private platform;
-	private updater;
-	private settings;
-	private windowBehaviour
-	private dispatcher;
+  private platform;
+  private updater;
+  private settings;
+  private windowBehaviour
+  private dispatcher;
 
-	constructor () {
-		this.platform = new platform.platform();
-		this.updater = new updater.updater();
-		this.settings = new settings.settings();
-		this.windowBehaviour = new windowBehaviour.windowBehaviour();
-		this.dispatcher = new dispatcher.dispatcher();
-	}
+  constructor() {
+    this.platform = new platform.platform();
+    this.updater = new updater.updater();
+    this.settings = new settings.settings();
+    this.windowBehaviour = new windowBehaviour.windowBehaviour();
+    this.dispatcher = new dispatcher.dispatcher();
+  }
 
   public settingsItems(win, keep) {
-		var self = this;
+    var self = this;
     return [{
       label: 'Reload',
       click: function () {
@@ -142,7 +142,7 @@ export class menus {
   }
 
   public loadMenuBar(win) {
-		if (!this.platform.isOSX) {
+    if (!this.platform.isOSX) {
       return;
     }
 
@@ -158,14 +158,14 @@ export class menus {
     }), 1);
 
     // Add the main settings
-    this.settingsItems(win, true).forEach(function(item, index) {
+    this.settingsItems(win, true).forEach(function (item, index) {
       submenu.insert(item, index + 2);
     });
 
     // Watch the items that have a 'setting' property
-    submenu.items.forEach(function(item) {
+    submenu.items.forEach(function (item) {
       if (item.setting) {
-        this.settings.watch(item.setting, function(value) {
+        this.settings.watch(item.setting, function (value) {
           item.checked = value;
         });
       }
@@ -175,10 +175,10 @@ export class menus {
   }
 
   public createTrayMenu(win) {
-		var menu = new gui.Menu();
+    var menu = new gui.Menu();
 
     // Add the main settings
-    this.settingsItems(win, true).forEach(function(item) {
+    this.settingsItems(win, true).forEach(function (item) {
       menu.append(item);
     });
 
@@ -188,22 +188,22 @@ export class menus {
 
     menu.append(new gui.MenuItem({
       label: 'Show Starter',
-      click: function() {
+      click: function () {
         win.show();
       }
     }));
 
     menu.append(new gui.MenuItem({
       label: 'Quit Starter',
-      click: function() {
+      click: function () {
         win.close(true);
       }
     }));
 
     // Watch the items that have a 'setting' property
-    menu.items.forEach(function(item) {
+    menu.items.forEach(function (item) {
       if (item.setting) {
-        this.settings.watch(item.setting, function(value) {
+        this.settings.watch(item.setting, function (value) {
           item.checked = value;
         });
       }
@@ -213,7 +213,7 @@ export class menus {
   }
 
   public loadTrayIcon(win) {
-		if (win.tray) {
+    if (win.tray) {
       win.tray.remove();
       win.tray = null;
     }
@@ -222,7 +222,7 @@ export class menus {
       icon: 'images/icon_' + (this.platform.isOSX ? 'menubar.tiff' : 'tray.png')
     });
 
-    tray.on('click', function() {
+    tray.on('click', function () {
       win.show();
     });
 
@@ -234,12 +234,12 @@ export class menus {
   }
 
   public createContextMenu(win, window, document, targetElement) {
-		var menu = new gui.Menu();
+    var menu = new gui.Menu();
 
     if (targetElement.tagName.toLowerCase() == 'input') {
       menu.append(new gui.MenuItem({
         label: "Cut",
-        click: function() {
+        click: function () {
           clipboard.set(targetElement.value);
           targetElement.value = '';
         }
@@ -247,21 +247,21 @@ export class menus {
 
       menu.append(new gui.MenuItem({
         label: "Copy",
-        click: function() {
+        click: function () {
           clipboard.set(targetElement.value);
         }
       }));
 
       menu.append(new gui.MenuItem({
         label: "Paste",
-        click: function() {
+        click: function () {
           targetElement.value = clipboard.get();
         }
       }));
     } else if (targetElement.tagName.toLowerCase() == 'a') {
       menu.append(new gui.MenuItem({
         label: "Copy Link",
-        click: function() {
+        click: function () {
           clipboard.set(targetElement.href);
         }
       }));
@@ -270,14 +270,14 @@ export class menus {
       if (selection.length > 0) {
         menu.append(new gui.MenuItem({
           label: "Copy",
-          click: function() {
+          click: function () {
             clipboard.set(selection);
           }
         }));
       }
     }
 
-    this.settingsItems(win, false).forEach(function(item) {
+    this.settingsItems(win, false).forEach(function (item) {
       menu.append(item);
     });
 
@@ -285,7 +285,7 @@ export class menus {
   }
 
   public injectContextMenu(win, window, document) {
-		document.body.addEventListener('contextmenu', function(event) {
+    document.body.addEventListener('contextmenu', function (event) {
       event.preventDefault();
       this.createContextMenu(win, window, document, event.target).popup(event.x, event.y);
       return false;
