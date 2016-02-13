@@ -1,7 +1,5 @@
 /// <reference path="../typings/_custom.d.ts" />
 
-//TODO: request and semver need def typings.
-
 import platform = require('./platform');
 import dispatcher = require('./dispatcher');
 import request = require('request');

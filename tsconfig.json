@@ -14,9 +14,5 @@
   },
   "files": [
     "src/app.ts"
-  ],
-  "exclude": [
-    "src/typings/node-webkit.d.ts",
-    "src/typings/request.d.ts"
   ]
 }

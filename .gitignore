@@ -1,7 +1,10 @@
 *.~
+src/**/*.js
+src/**/*.js.map
 *.bak
 build
-.swp
+*.swp
 /dist/
 /cache/
 node_modules/
+.idea

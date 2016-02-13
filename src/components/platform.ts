@@ -1,10 +1,10 @@
 /// <reference path="../typings/_custom.d.ts" />
 
 var client: string = process.platform;
-var arch:  = process.arch === 'ia32' ? '32' : '64';
+var arch: string = process.arch === 'ia32' ? '32' : '64';
 client = client.indexOf('win') === 0 ? 'win' : client.indexOf('darwin') === 0 ? 'osx' : 'linux';
 
-export class platform {
+export class platfor {
   public isOsx: boolean;
   public isWindows: boolean;
   public isLinux: boolean;
